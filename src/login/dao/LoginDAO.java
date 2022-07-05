@@ -1,6 +1,6 @@
 package login.dao;
 
-import ebhor.model.User;
+import login.model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,6 +26,9 @@ public class LoginDAO {
             rs = ps.executeQuery();
             while (rs.next()) {
                 System.out.println("Login success");
+                user.setUser_id(rs.getInt("user_id"));
+                user.setFirstName(rs.getString("firstName"));
+                user.setLastName(rs.getString("lastName"));
                 return true;
             }
             return false;

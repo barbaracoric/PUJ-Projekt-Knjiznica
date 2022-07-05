@@ -9,7 +9,7 @@ public class ConnectionFactory {
     public static Connection getConnection() {
         Connection c = null;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             c = DriverManager.getConnection("jdbc:mysql://localhost:3306/book?useUnicode=true&characterEncoding=UTF-8", "root", "Test12345!");
         } catch (ClassNotFoundException e) {
             System.out.println("ClassNotFoundException " + e);

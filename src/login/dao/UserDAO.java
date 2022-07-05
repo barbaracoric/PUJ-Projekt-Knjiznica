@@ -1,6 +1,6 @@
-package ebhor.dao;
+package login.dao;
 
-import ebhor.model.User;
+import login.model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

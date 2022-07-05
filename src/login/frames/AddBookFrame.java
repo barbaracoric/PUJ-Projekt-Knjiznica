@@ -1,7 +1,7 @@
-package ebhor.frames;
+package login.frames;
 
-import ebhor.dao.BookDAO;
-import ebhor.model.Book;
+import login.dao.BookDAO;
+import login.model.Book;
 
 import javax.swing.*;
 import java.awt.*;

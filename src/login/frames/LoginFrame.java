@@ -1,15 +1,18 @@
 package login.frames;
 
-import ebhor.frames.RegisterFrame;
-import ebhor.model.User;
+import login.model.User;
 import login.dao.LoginDAO;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class LoginFrame extends JFrame implements ActionListener {
 
-    JLabel userNameLable;
+    JLabel userNameLabel;
     JLabel passwordLabel;
     JTextField userNameTextField;
     JPasswordField passwordField;
@@ -17,32 +20,47 @@ public class LoginFrame extends JFrame implements ActionListener {
     JButton registerButton;
     Container container;
 
-    public LoginFrame() {
-        userNameLable = new JLabel("User Name");
+    public LoginFrame() throws IOException {
+        userNameLabel = new JLabel("User Name");
         userNameTextField = new JTextField();
         passwordLabel = new JLabel("Password");
         passwordField = new JPasswordField();
         loginButton = new JButton("Login");
         registerButton = new JButton("Register");
+        setPreferredSize(new Dimension(850,500));
+        setMinimumSize(new Dimension(850,500));
         container = getContentPane();
         container.setLayout(null);
+        container.setBounds(200,200,850,500);
+        final BufferedImage image = ImageIO.read(new File("src/images/library_login.jpg"));
+
+        JPanel pane = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(image, 0, 0, null);
+            }
+        };
+        pane.setBounds(0,0,500,500);
+        container.add(pane);
+
         setBounds();
         addComponents();
         addActionListener();
-
     }
 
+
     public void setBounds() {
-        userNameLable.setBounds(10, 10, 100, 30);
-        userNameTextField.setBounds(100, 10, 200, 30);
-        passwordLabel.setBounds(10, 50, 100, 30);
-        passwordField.setBounds(100, 50, 200, 30);
-        loginButton.setBounds(100, 100, 200, 30);
-        registerButton.setBounds(100, 200, 150, 20);
+        userNameLabel.setBounds(510, 10, 100, 30);
+        userNameTextField.setBounds(600, 10, 200, 30);
+        passwordLabel.setBounds(510, 50, 100, 30);
+        passwordField.setBounds(600, 50, 200, 30);
+        loginButton.setBounds(600, 100, 200, 30);
+        registerButton.setBounds(600, 200, 150, 20);
     }
 
     public void addComponents() {
-        container.add(userNameLable);
+        container.add(userNameLabel);
         container.add(userNameTextField);
         container.add(passwordLabel);
         container.add(passwordField);
@@ -77,7 +95,12 @@ public class LoginFrame extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Wrong username or password ");
                 return;
             }else{
-                login.frames.HomeFrame homeFrame = new login.frames.HomeFrame();
+                HomeFrame homeFrame = null;
+                try {
+                    homeFrame = new HomeFrame(user, this);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
                 homeFrame.setTitle("Home page");
                 homeFrame.setVisible(true);
                 homeFrame.setBounds(270, 270, 370, 300);
@@ -96,7 +119,7 @@ public class LoginFrame extends JFrame implements ActionListener {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         LoginFrame frame = new LoginFrame();
         frame.setTitle("Login Form");
         frame.setVisible(true);

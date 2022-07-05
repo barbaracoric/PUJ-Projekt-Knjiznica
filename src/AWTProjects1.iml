@@ -3,12 +3,11 @@
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/login" isTestSource="false" packagePrefix="ebhor" />
+      <sourceFolder url="file://$MODULE_DIR$/login" isTestSource="false" packagePrefix="login" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="mysql-connector" level="project" />
-    <orderEntry type="library" name="jBCrypt-0.4.3" level="project" />
-    <orderEntry type="library" name="mysql-connector-java-8.0.28" level="project" />
+    <orderEntry type="library" name="jBCrypt-0.4.31" level="project" />
+    <orderEntry type="library" name="mysql-connector-java-8.0.29" level="project" />
   </component>
 </module>

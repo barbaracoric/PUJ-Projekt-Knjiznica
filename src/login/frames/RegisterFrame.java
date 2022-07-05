@@ -1,7 +1,7 @@
-package ebhor.frames;
+package login.frames;
 
-import ebhor.dao.UserDAO;
-import ebhor.model.User;
+import login.dao.UserDAO;
+import login.model.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 
 public class RegisterFrame extends JFrame implements ActionListener {
 
-    JLabel userNameLable;
+    JLabel userNameLabel;
     JLabel passwordLabel;
     JLabel firstNameLabel;
     JLabel lastNameLabel;
@@ -26,7 +26,7 @@ public class RegisterFrame extends JFrame implements ActionListener {
         firstNameField = new JTextField();
         lastNameLabel = new JLabel("Last name");
         lastNameField = new JTextField();
-        userNameLable = new JLabel("User Name");
+        userNameLabel = new JLabel("User Name");
         userNameTextField = new JTextField();
         passwordLabel = new JLabel("Password");
         passwordField = new JPasswordField();
@@ -43,7 +43,7 @@ public class RegisterFrame extends JFrame implements ActionListener {
         firstNameField.setBounds(100, 10, 200, 30);
         lastNameLabel.setBounds(10, 50, 100, 30);
         lastNameField.setBounds(100, 50, 200, 30);
-        userNameLable.setBounds(10, 90, 100, 30);
+        userNameLabel.setBounds(10, 90, 100, 30);
         userNameTextField.setBounds(100, 90, 200, 30);
         passwordLabel.setBounds(10, 130, 100, 30);
         passwordField.setBounds(100, 130, 200, 30);
@@ -55,7 +55,7 @@ public class RegisterFrame extends JFrame implements ActionListener {
         container.add(firstNameField);
         container.add(lastNameLabel);
         container.add(lastNameField);
-        container.add(userNameLable);
+        container.add(userNameLabel);
         container.add(userNameTextField);
         container.add(passwordLabel);
         container.add(passwordField);
@@ -74,6 +74,13 @@ public class RegisterFrame extends JFrame implements ActionListener {
             user.setPassword(passwordField.getText());
             user.setFirstName(firstNameField.getText());
             user.setLastName(lastNameField.getText());
+
+            Validation v = new Validation();
+            java.util.List<String> errors = v.validateLogin(user.getUserName(), user.getPassword());
+            if (errors.size() > 0) {
+                JOptionPane.showMessageDialog(null, errors.toArray());
+                return;
+            }
             new UserDAO().addStudent(user);
             JOptionPane.showMessageDialog(null, "Success register "+firstNameField.getText());
             this.setVisible(false);
@@ -85,7 +92,6 @@ public class RegisterFrame extends JFrame implements ActionListener {
         frame.setTitle("Register Form");
         frame.setVisible(true);
         frame.setBounds(250, 250, 370, 300);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(true);
 
     }
